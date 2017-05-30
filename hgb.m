@@ -3,13 +3,14 @@ function [ U ] = hgb()
 %   Function computing the Hermitte-Gauss beam for a laser
 
 global lambda nbpixel;
+p = 50;
 
 %% SET PARAMETERS
 % Physical parameters
 k = 2*pi/lambda;
 
 % The two parameters for the gaussian beam (and derived quantities)
-z0 = 1e-2;
+z0 = 1e-3;
 A0 = 1;
 W0 = sqrt(lambda*z0/pi);
 W = @(z) W0*sqrt(1+(z/z0)^2);
@@ -17,8 +18,8 @@ R = @(z) z*(1+(z/z0)^2);
 Zeta = @(z) atan(z/z0);
 
 % The coefficients for the Hermite-Gaussian (HG) beam of order (l,m)
-A = [   1   0   0   0;
-        0   0   0   0;
+A = [   0   0   0   0;
+        1   0   0   0;
         0   0   0   0;
         0   0   0   0];
  % Trouve les indices des lignes où il y a des 0 (seulement pour les colonnes de 2 à la fin)
@@ -31,8 +32,8 @@ col_idx = unique(col_idx);
 
 % Display Parameters
 z = 1e-9;
-x = linspace(-2*W(z),2*W(z),nbpixel);
-y = linspace(-2*W(z),2*W(z),nbpixel);
+x = linspace(-p*W(z),p*W(z),nbpixel);
+y = linspace(-p*W(z),p*W(z),nbpixel);
 [X Y] = meshgrid(x,y);
 X = X(:);
 Y = Y(:);
