@@ -1,37 +1,29 @@
 %% Diffraction par une fente
 clear all; close all;
 
-%----------- déclarations -------------------
-global nbpixel;     % nombre de pixels par ligne (et par colonne car fenetre carrée)
-global nb; % la moitié
+%----------- dï¿½clarations -------------------
+global nbpixel;     % nombre de pixels par ligne (et par colonne car fenetre carrï¿½e)
+global nb; % la moitiï¿½
 global lambda;       % en cm
 global taillefenetre;   % en cm
 global m;
 global n;
 
-%------------ paramètres fixés ----------------------
-nbpixel = 1024;
+%------------ paramï¿½tres fixï¿½s ----------------------
+nbpixel = 2048;
 lambda = 0.8e-4; % en cm
 taillefenetre =  10;  % en cm
-b = 0.1; % taille diaphragme carré en cm (0.25)
-
-%------------ paramètres optimisés ----------------------
-
-e = 100; % "épaisseur de phase" en Âµm
-P = 700; % mW %10, 300, 500, 2000
-
-%-----------------------------------------------
-
+b = 0.1; % taille diaphragme carrï¿½ en cm (0.25)
 dx = taillefenetre/(nbpixel-1);
 nb = nbpixel/2;
 [m,n]=meshgrid([1:nbpixel]);
 
-%------ initialisation collimatée -------%
+%------ initialisation collimatï¿½e -------%
 
-%entree = hypergauss2(1, 1, nb+1, nb+1);
-entree = hgb;
+%entree = hgb;
+entree = hypergauss2(1, 1e-2, nb+1, nb+1);
 figure;
-imagesc(abs(entree).^2); title('Intensité en entrée'); 
+imagesc(abs(entree).^2); title('IntensitÃ© en entrÃ©e'); 
 
 %---------------------------------------
 
@@ -43,8 +35,8 @@ imagesc(abs(entree).^2); title('Intensité en entrée');
 % entree = entree.*diaph; 
 
 %------ TEST PROPA ---------------%
-prop = abs(propagation(entree,1)).^2; %
-prop1 = abs(propagation(entree,1e3)).^2; %
+prop = propagation(entree,1); %
+prop1 = propagation(entree,1e3); %
 figure;
-subplot(1,2,1); imagesc(prop);title('Intensité sur le capteur à 1m');
-subplot(1,2,2); imagesc(prop1);title('Intensité sur le capteur à 10m');
+subplot(1,2,1); imagesc(abs(prop).^2);title('IntensitÃ© sur le capteur Ã  1m');
+subplot(1,2,2); imagesc(abs(prop1).^2);title('IntensitÃ© sur le capteur Ã  10m');

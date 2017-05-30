@@ -9,7 +9,7 @@ global lambda nbpixel;
 k = 2*pi/lambda;
 
 % The two parameters for the gaussian beam (and derived quantities)
-z0 = 1e-9;
+z0 = 1e-2;
 A0 = 1;
 W0 = sqrt(lambda*z0/pi);
 W = @(z) W0*sqrt(1+(z/z0)^2);
@@ -17,8 +17,8 @@ R = @(z) z*(1+(z/z0)^2);
 Zeta = @(z) atan(z/z0);
 
 % The coefficients for the Hermite-Gaussian (HG) beam of order (l,m)
-A = [   0   0   0   0;
-        0   1   0   0;
+A = [   1   0   0   0;
+        0   0   0   0;
         0   0   0   0;
         0   0   0   0];
  % Trouve les indices des lignes où il y a des 0 (seulement pour les colonnes de 2 à la fin)
